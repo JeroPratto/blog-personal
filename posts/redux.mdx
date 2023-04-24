@@ -1,0 +1,164 @@
+---
+title: 'Redux y redux-toolkit'
+subtitle: 'Introducción a redux y redux-toolkit, con y sin manejo de persistencia'
+date: '2023-04-24'
+urlImg: '/redux.webp'
+---
+
+# Redux y redux toolkit
+
+Redux sirve para gestionar el estado de nuestra aplicación, facilita la administración del estado global mediante un almacenamiento centralizado. ¿Cuándo lo usaría? Lo usaría cuando la información se necesita en toda nuestra aplicación. Si la información solo se necesita en una página, podemos usar context. Si es solo entre componentes, RxJS.
+
+## Descargas
+
+```bash
+npm install redux react-redux
+npm install @reduxjs/toolkit
+```
+
+## Disposición de Carpetas
+
+- src/
+- models/
+  - user.ts
+- redux/
+  - store.ts
+  - states/
+    - user-slice.ts
+
+## Parece no tener sentido
+
+Por cómo te lo voy a presentar, parece no tener sentido, pero de a poco empieza a cerrar
+
+```ts:redux/store.ts
+import { User } from '@/models'
+import { configureStore } from '@reduxjs/toolkit'
+import { userSlice } from './states'
+
+export interface AppStore {
+  usuario : User
+}
+
+export default configureStore<AppStore>({
+  reducer : {
+    usuario : userSlice.reducer
+  }
+})
+```
+
+Con este provider vamos a envolver nuestra app
+
+```tsx:App
+import { Provider } from 'react-redux'
+import store from './redux/store'
+
+function App(){
+  return(
+    <Provider store={store}>
+      <Aplication />
+    </Provider>
+  )
+}
+```
+
+Este va a ser nuestro slice sin persistencia y despues te voy a mostrar uno con localStorage
+
+```ts:state/userSlice.ts
+import { User } from '@/models'
+import { createSlice, current } from '@reduxjs/toolkit'
+
+const InitialState : User = {
+  name: ''
+  email: ''
+}
+
+export const userSlice = createSlice({
+  name:'user'
+  initialState: initalState,
+  reducers: {
+    // estas son funciones que luego podremos usar
+    // state: estado actual (como el state del userState)
+    // action.payload: info que nos mandan
+    addUser : (state, action) => {
+      // lo que retornamos reemplaza el estado actual
+      return action.payload
+    }
+    resetUser: () => {
+      // devolvemos initialState asi queda vacio el user
+      return initalState
+    }
+    // Vamos a dejar por aca, podes agregar la cantidad que quieras
+  }
+})
+
+export const { addUser, resetUser } = userSlice.actions
+```
+
+Ahora, con persistencia en localStorage, esto se puede cambiar a una base de datos
+
+```ts:state/userSlice.ts
+import { User } from '@/models'
+import { createSlice, current } from '@reduxjs/toolkit'
+
+const InitialState : User = {
+  name: ''
+  email: ''
+}
+
+export const userSlice = createSlice({
+  name:'user'
+  // Este operador ternario establece el estado de la siguiente manera:
+  // verifica si hay un usuario en el localStorage y lo guarda en el estado.
+  // Si no hay un usuario, entonces guarda el initialState.
+  initialState: localStorage.getItem('user') ?
+  JSON.parse(localStorage.getItem('user') as string)
+  : initialState,
+  reducers: {
+    addUser : (state, action) => {
+      localStorage.setItem('user', JSON.stringify(action.payload))
+      return action.payload
+    }
+    resetUser: () => {
+      localStorage.removeItem('user');
+      return initalState
+    }
+  }
+})
+
+export const { addUser, resetUser } = userSlice.actions
+```
+
+Solo queda como consumir lo que acabamos de hacer
+
+```tsx:page.tsx
+import { useDispatch, useSelector } from 'react-redux'
+import { addUser, resetUser, AppStore } from '@/redux'
+
+export const home = () => {
+  // en el userState vamos a tener guardado el estado
+  const userState = useSelector((store:AppStore) => store.usuario)
+  // y para usar las funciones usamos dispatch
+  const dispatch = useDispatch()
+
+  const resetUser = () => {
+    dispatch(resetUser())
+  }
+
+  const addUser = () => {
+    dispatch(addUser({ name:'jero', email:'jero@gmail.com' }))
+  }
+  const
+  return(
+    <>
+      <ul>
+        <li>Name: {userState.name}</li>
+        <li>Email: {userState.email}</li>
+      </ul>
+      <div>
+        <button onClick={addUser}>Add user</button>
+        <button onClick={resetUser}>Reset user</button>
+      </div>
+    </>
+  )
+}
+```

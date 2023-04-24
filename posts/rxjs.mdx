@@ -1,0 +1,95 @@
+---
+title: 'RxJs en react'
+subtitle: 'Patron observable, implementación de RxJS entre emisor y escucha'
+date: '2023-04-24'
+urlImg: '/rxjs.webp'
+---
+
+# RxJS
+
+RxJS se basa en el patrón observable, que es una secuencia de valores que se emiten con el tiempo. Los observables se pueden utilizar para representar flujos de datos como eventos de usuario, solicitudes de red, entre otros. ¿Cuándo lo usaría? Bueno, lo usaría cuando la comunicación de datos es entre dos o unos pocos componentes. Si la información es para toda una página o vista, usaría Context y si es para toda la aplicación, usaría Redux.
+
+## Descarga
+
+```bash
+npm install rxjs
+```
+
+## Toma de contacto
+
+Hoy vamos a ver algo muy sencillo mas que nada la base, pero RxJS tiene mucho más para dar
+
+```js:SubjectManager.js
+import { Subject } from 'rxjs'
+
+// vamos a utilizar clases
+export class SubjectManager {
+	subject = new Subject()
+
+	getSubject() {
+		return this.subject.asObservable()
+		// asObservable es para que la linea de comunicación sea unidireccional,
+		// es decir, que no se pueda modificar el subject
+	}
+	setSubject(value) {
+		// setea el estado con el value
+		this.subject.next(value)
+	}
+	// aca se puede agregar lo que te haga falta
+}
+```
+
+Ahora vamos a hacer el canal de comunicación
+
+```js:informationService.js
+import { SubjectManager } from ...
+
+export const informationService = new SubjectManager()
+// ahora todo el que consuma este informationService va a tener
+// la misma información
+```
+
+Nos subscribimos y lo usamos como escucha
+
+```js:componenteEscucha.js
+import { informationService } from ...
+
+function componenteEscucha() {
+  // aca recibimos la información cada vez que cambia
+  const subscription = informationService.getSubject();
+
+  useEffect(() => {
+    // nos subscribimos y usamos la información
+    const subscriptionObserver = subscription.subscribe(data => {
+      console.log(data)
+    })
+
+    return () => {
+      // nos desuscribimos para no usar tanta memoria
+      subscriptionObserver.unsubscribe()
+    }
+  },[subscription])
+
+  return (
+    <div></div>
+  )
+}
+```
+
+Ahora lo usamos para emitir
+
+```js:componenteEmisor
+import { informationService } from ...
+
+function componenteEmisor() {
+  const handleClick = () => {
+    // seteamos la data que queremos
+    informationService.setSubject(data)
+  }
+
+  return(
+    // no se me ocurrio algo mejor
+    <button onClick={handleClick}>Enviar</button>
+  )
+}
+```

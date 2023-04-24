@@ -1,0 +1,41 @@
+---
+title: 'Lazy loading in Routes'
+subtitle: 'Utilizar lazy loading en componentes cargados por <Route/>'
+date: '2023-04-23'
+urlImg: '/lazy.webp'
+---
+
+# Lazy loading in Routes
+
+vamos a ver como usar el lazy loading dentro de una aplicación react
+
+### ¿Qúe es el lazy loading?
+
+Segun chatGPT: El "lazy loading" o carga diferida es una técnica de optimización que consiste en cargar y mostrar elementos (como imágenes, componentes o módulos) solo cuando son necesarios, es decir, cuando están en el área visible del usuario o próximos a serlo. Esto ayuda a mejorar la velocidad de carga inicial y el rendimiento general de una aplicación web al reducir los recursos cargados innecesariamente.
+
+Hoy lo vamos a ver solo en las rutas
+
+```tsx
+  import { lazy, Suspense } from 'react'
+
+  function App() {
+    // Como ya lo importamos desde el lazi no hace falta importarlo de otro lado
+    // Esto va a hacer el componente no se cargue hasta que sea necesario
+    const Login = lazy(() => import('./pages/Login/login'))
+    const Home = lazy(() => import('./pages/Home/Home'))
+    // Y ya esta, no hay más vueltas que darle
+    return(
+      <div>
+        // El Suspense sirve para que se cargue un elemento mientras carga otro.
+        // Por ejemplo, se puede poner un spinner o una pantalla de carga.
+        <Suspense fallback={}>
+        <BroweserRouter>
+          <Routes>
+            <Route path="/home" element={<Home/>}/>
+            <Route path="/login" element={<Login />}>
+          </Routes>
+        </BroweserRouter>
+      </div>
+    )
+  }
+```

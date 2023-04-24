@@ -1,0 +1,125 @@
+---
+title: 'Testing a un Form'
+subtitle: 'Cómo testear un formulario en React usando las librerías de Testing Library y jest. '
+date: '2023-04-17'
+urlImg: '/testing-form.webp'
+---
+
+# Testing a un Form
+
+En este post, voy a tratar de explicar cómo funciona y qué es el `screen, render, expect` y cómo implementarlo para probar un formulario.
+
+## Render, Screen, Expect, Mocks
+
+- Render
+
+Como su nombre indica, lo que va a hacer esto es renderizar el componente que nosotros le pidamos y nos va a retornar el contenedor del DOM donde se está ejecutando la prueba. Para simplificar la explicación, imagínate un vacío (navegador) y dentro de este aparece el componente que renderizaste y eso es lo unico que hay. A partir de ahí, vamos a poder empezar a trabajar.
+
+- Screen
+
+El screen nos permite actuar sobre nuestro render; es algo parecido al container que nos devuelve la función Render, pero con algunos añadidos que nos ofrecen una mayor comodidad al testear los componentes.
+
+- Expect
+
+Podemos dividir Expect en dos partes: en la primera, `expect(container)`, le indicamos qué es lo que tiene que observar y, en la segunda, `expect(container).toBeInTheDocument()`, qué tiene que esperar que pase. En este caso, le decimos que mire el container y luego verifique si está en el documento.
+
+- Mocks
+
+Los mocks serán información controlada que proporcionaremos a los componentes para obtener respuestas predecibles.
+
+## Carpetas y archivos a crear
+
+- `__test__`
+  - LoginForm.test.tsx
+- `__mocks__`
+  - LoginForm.mock.ts
+
+## Toma de contacto
+
+```tsx:LoginForm.test.tsx
+import { render } from '@testing-library/react'
+
+// describe(nombreComponente, logica)
+
+describe('LoginForm', () => {
+	// Vamos a tomar "it" como cada parte individual del test.
+	it('should render correctly', () => {
+		const container = render(<LoginForm />) // renderiza <LoginForm/>
+		expect(container).toBeInTheDocument() // Si container esta en el documento pasa el test
+	})
+})
+```
+
+Ya sabiendo la base de cómo vamos a realizar los tests, podemos comenzar a complejizarlos.
+
+## Creación de mocks
+
+```ts:LoginForm.mock.ts
+// Esta va a ser la información "buena"
+export const LoginFormMock = {
+	username: 'username',
+	password: 'pass123@',
+}
+
+// Esta va a ser la información erronea
+export const LoginFormMockError = {
+	username: 'usernameeeeeeeeeeeeeee',
+	password: 'pass123',
+}
+```
+
+## Dos inputs en pantalla
+
+```tsx:LoginForm.test.tsx
+import { screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { LoginFormMock } from '@/__mocks__/LoginForm.mock.ts'
+
+describe('LoginForm', () => {
+	// se ejecuta despues del test y resetea los mocks
+	afterEach(cleanup)
+	afterEach(jest.clearAllMocks)
+	// Este beforeAll es para que se ejecute siempre antes de cualquier test y no tener que repetir constantemente el render
+	beforeEach(() => {
+		render(<LoginForm />)
+	})
+	it('should two input and button exists at the screen', () => {
+		// Obtenemos los elementos por su rol y name, aunque hay otras formas como el data-testid
+		const usernameInput = screen.getByRole('textbox', { name: /Iniciar sesion/i, })
+		const passwordInput = screen.getByRole('textbox', { name: /Contraseña/i })
+		const buttonSubmit = screen.getByRole('button', { name: /Iniciar sesion/i })
+
+		expect(usernameInput).toBeInTheDocument()
+		expect(passwordInput).toBeInTheDocument()
+		expect(buttonSubmit).toBeInTheDocument()
+
+		// Aca verifica si el botón está deshabilitado cuando el form no tiene información.
+		expect(buttonSubmit).toBeDisabled()
+	})
+```
+
+### Mismos dos inputs y le sumamos mocks, userEvent
+
+```jsx
+	it('should enable the submit button if the form values are valid', async () => {
+		const usernameInput = screen.getByRole('textbox', { name: /Iniciar sesion/i, })
+		const passwordInput = screen.getByRole('textbox', { name: /Contraseña/i })
+		const submitButton = screen.getByRole('button', { name: /Iniciar sesion/i })
+
+		expect(submitButton).tobeDisabled()
+		// Ahora simulamos que el usuario escribe en el form con la información del mock
+		await userEvent.type(usernameInput, LoginFormMock.username)
+		await userEvent.type(usernameInput, LoginFormMock.password)
+
+		// El waitFor es una función que espera a que todo lo que está dentro termine; aquí no se utiliza de la mejor manera
+		// pero es para el ejemplo
+		await waitFor(() => {
+			// Vemos si el valor del form conincide con el mock
+			expect(usernameInput).toHaveValue(LoginFormMock.username)
+			expect(passwordInput).toHaveValue(LoginFormMock.password)
+		})
+		// y vemos que se habilite el boton
+		expect(submitButton).toBeEnabled()
+	})
+})
+```

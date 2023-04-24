@@ -1,0 +1,43 @@
+.container {
+	position: fixed;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	height: 50px;
+	width: 97%;
+	max-width: 500px;
+	top: 20px;
+	left: 50%;
+	-webkit-transform: translateY(0);
+	-ms-transform: translateY(0);
+	transform: translateY(0);
+	-webkit-transform: translateX(-50%);
+	-ms-transform: translateX(-50%);
+	transform: translateX(-50%);
+	background-color: #c1b1fa;
+	border-radius: 100px;
+	z-index: 999;
+}
+
+.listContainer {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	width: 100%;
+	padding: 0 5%;
+}
+
+.img {
+	width: 27px;
+	height: 27px;
+}
+.arrow {
+	cursor: pointer;
+}
+
+.btnArrow {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

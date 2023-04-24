@@ -1,0 +1,113 @@
+---
+title: 'Testing-library and jest'
+subtitle: 'Cómo configurar testing-library y jest para usarlo con: nextjs, typescript y css modules. '
+date: '2023-04-17'
+urlImg: '/testing-library-jest.webp'
+---
+
+# Configuracion de Testin-library y jest
+
+Vamos a hacer la configuración de testing-library y jest para usar con nextjs, typescript y css modules
+
+## Lo que hay que descargar
+
+```bash:Descargas
+npm install --save-dev jest babel-jest @testing-library/react @testing-library/jest-dom identity-obj-proxy react-test-renderer
+npm install --save-dev @babel/pree-next\basement-challenge>set-env
+npm install --save-dev @babel/pree-next\basement-challenge>set-react
+npm install --save-dev @babel/preset-typescript
+npm install --dev babel-jest jest-css-modules-transform
+npm install -D jest-environment-jsdom
+```
+
+## Carpetas y archivos a crear
+
+- `__test__/`
+- `__moks__/`
+  - fileMock.js
+  - styleMock.js
+- app/
+  - page.tsx
+- jest.config.js
+- jest.setup.js
+- babel.config.json
+
+### jest.config.js
+
+````js:jest.config.js
+module.exports = {
+	collectCoverageFrom: [
+		'**/*.{js,jsx,ts,tsx}',
+		'!**/*.d.ts',
+		'!**/node_modules/**',
+	],
+	moduleNameMapper: {
+		/* Handle CSS imports and with CSS modules
+		https://jestjs.io/docs/webpack#mocking-css-modules */
+		'^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
+		'^@/(.*)$': '<rootDir>/$1',
+		// Handle CSS imports without CSS modules
+		// '^.+\\.(css|sass|scss)$': '<rootDir>/__mocks__/styleMock.js',
+
+		/* Handle image imports
+	  https://jestjs.io/docs/webpack#handling-static-assets */
+		'^.+\\.(jpg|jpeg|png|gif|webp|avif|svg)$':
+			'<rootDir>/__mocks__/fileMock.js',
+	},
+	testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/'],
+	testEnvironment: 'jsdom',
+	transform: {
+		// '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { presets: ['next/babel'] }],
+		'^.+\\.[jt]sx?$': 'babel-jest',
+		'.+\\.(css|styl|less|sass|scss)$': 'jest-css-modules-transform',
+	},
+	transformIgnorePatterns: [
+		'/node_modules/',
+		'^.+\\.module\\.(css|sass|scss)$',
+	],
+	testMatch: [
+		'**/__tests__/**/*.[jt]s?(x)',
+		'**/?(*.)+(spec|test|tests).[tj]s?(x)',
+	],
+	setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+}
+```
+
+### jest.setup.js
+
+```js:jest.setup.js
+import '@testing-library/jest-dom/extend-expect'
+````
+
+### fileMock.js
+
+```js:__mocks__/fileMock.js
+// react sin nextjs, si da error cambiar por '/test-file-stub'
+module.exports = 'test-file-stub'
+
+// react con nextjs
+module.exports = {
+	src: '/img.jpg',
+	height: 24,
+	width: 24,
+	blurDataURL: 'data:image/png;base64,imagedata',
+}
+```
+
+### styleMock.js
+
+```js:__mocks__/styleMock.js
+module.exports = {}
+```
+
+### babel.config.json
+
+```json:babel.config.json
+{
+	"presets": [
+		"@babel/preset-env",
+		["@babel/preset-react", { "runtime": "automatic" }],
+		"@babel/preset-typescript"
+	]
+}
+```

@@ -1,102 +1,57 @@
+import Link from 'next/link'
+import { getPostMetaData } from './utilities'
+import estilos from './styles/home.module.css'
 import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from './page.module.css'
-
-const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+	const postMetada = getPostMetaData()
+	const dataStorted = postMetada.sort((a, b) => {
+		if (a.date < b.date) return 1
+		if (a.date > b.date) return -1
+		return 0
+	})
+	return (
+		<div className={estilos.container}>
+			<div className={estilos.containerInfo}>
+				<div className={estilos.containerTitleAndDesc}>
+					<h1 className={estilos.title}>Notas by Jerónimo</h1>
+					<p className={estilos.desc}>
+						<span className={estilos.hi}>Hola</span>, ¡bienvenido a mi blog de
+						notas y soluciones! Aquí te comparto un registro de todos los
+						problemas que voy descubriendo en mi día a día y las soluciones que
+						he encontrado. Mis notas tratan de ser directas y sin tanta vuelta,
+						para que puedas acceder a la información de forma rápida y efectiva.
+						A pesar de que son mis notas privadas, las comparto con vos con la
+						intención de hacerte la vida un poco más facil. Si tenés alguna
+						duda, encontrás algo mal hecho o creés que hay alguna forma de
+						mejorar algo, por favor no dudes en contactarme.
+					</p>
+				</div>
+				<ul className={estilos.containerList}>
+					{dataStorted.map((post) => (
+						<Link
+							href={`/posts/${post.slug}`}
+							className={estilos.link}
+							key={post.slug}
+						>
+							<li className={estilos.containerItem}>
+								<div className={estilos.containerImg}>
+									<Image
+										src={post.urlImg}
+										alt={post.title}
+										fill
+										className={estilos.img}
+									/>
+								</div>
+								<div className={estilos.itemTitleAndDesc}>
+									<h3 className={estilos.itemTitle}>{post.title}</h3>
+									<p className={estilos.itemDesc}>{post.subtitle}</p>
+								</div>
+							</li>
+						</Link>
+					))}
+				</ul>
+			</div>
+		</div>
+	)
 }

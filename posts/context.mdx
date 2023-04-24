@@ -1,0 +1,64 @@
+---
+title: 'Context en react'
+subtitle: 'Como y cuando usar context, provider y consumo'
+date: '2023-04-23'
+urlImg: '/react-context.webp'
+---
+
+# Context
+
+Context es una funcionalidad que permite pasar datos de un componente a otro sin tener que pasar los datos explícitamente a través de las propiedades en cada nivel de la jerarquía de componentes. ¿Cuándo lo usaría? Bueno, lo usaría cuando la información es necesaria en toda una página/vista. Si la información fuera necesaria en toda la aplicación, usaría Redux. Pero si fuera necesaria solo entre algunos componentes, usaría RxJS.
+
+## Toma de contacto
+
+```js:UserContext.js
+// creamos el contexto
+export const UserContext = createContext();
+
+// con esto envolvemos la app
+export const UserProvider = {{ children }} => {
+
+  const [user, setUser] = useState('')
+
+  return(
+    <UserContext.Provider value={{ user, setUser }}>
+      {children}
+    </UserContext.Provider>
+  )
+}
+
+// esto es lo que vamos a utilizar en los componentes
+export const useUserContext = () => {
+  const context = useContext(UserContext)
+  if( context == undefined){
+    throw new Error ('UserContext nuest be used within a UserContextProvider')
+  }
+  return context
+}
+```
+
+Ahora pongamos el provider
+
+```js:page.js
+import UserProvider from ...
+
+function home() {
+  return(
+    <UserProvider>
+      <Componente1/>
+      <Componente2/>
+      <Componente3/>
+    </UserProvider>
+  )
+}
+```
+
+Y para usarlo en un componente hacemos asi
+
+```js:componente1
+function componente1() {
+  // Tomamos lo que pasamos por el provider
+  const { user, setUser } = useUserContext()
+  // Ahora se puede usar como un useState en toda la pagina
+}
+```

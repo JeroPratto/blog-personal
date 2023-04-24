@@ -1,0 +1,16 @@
+.container {
+	margin-top: 100px;
+	width: 100%;
+	padding: 50px 5%;
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	flex-direction: column;
+	background-color: #222;
+	color: #aaa;
+	gap: 20px;
+}
+
+.title {
+	color: #fff;
+}
