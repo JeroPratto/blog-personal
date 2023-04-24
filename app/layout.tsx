@@ -1,4 +1,5 @@
 import { Footer, Navbar } from './components'
+import { Analytics } from '@vercel/analytics/react'
 import './globals.css'
 
 export const metadata = {
@@ -16,6 +17,7 @@ export default function RootLayout({
 		<html lang='es'>
 			<body className='bodyContainer'>
 				<div className='containerMaxWidth'>
+					<Analytics />
 					<Navbar />
 					{children}
 					<Footer />
