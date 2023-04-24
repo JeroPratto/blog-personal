@@ -15,6 +15,10 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang='es'>
+			<meta
+				name='google-site-verification'
+				content='dLsYd_eUzjNf5t3QF34qIZN_0B2KZuKj-GGOhlPmD6c'
+			/>
 			<body className='bodyContainer'>
 				<div className='containerMaxWidth'>
 					<Analytics />
