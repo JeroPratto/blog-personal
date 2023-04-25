@@ -21,12 +21,12 @@ export default function RootLayout({
 			/>
 			<body className='bodyContainer'>
 				<div className='containerMaxWidth'>
-					<Analytics />
 					<Navbar />
 					{children}
 					<Footer />
 				</div>
 			</body>
+			{/* <Analytics /> */}
 		</html>
 	)
 }
