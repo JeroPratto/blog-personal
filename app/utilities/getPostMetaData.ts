@@ -1,10 +1,12 @@
 import matter from 'gray-matter'
 import { PostMetaData } from '../models'
 import fs from 'fs'
+import path from 'path'
 
 const getPostMetaData = (): PostMetaData[] => {
-	const folder = 'posts/'
-	const files = fs.readdirSync(folder)
+	const directory = path.join(process.cwd(), 'posts')
+	const files = fs.readdirSync(directory)
+	console.log(files)
 	const markdownPosts = files.filter((file) => file.endsWith('.mdx'))
 	const posts = markdownPosts.map((fileName) => {
 		const fileContent = fs.readFileSync(`posts/${fileName}`, 'utf-8')
