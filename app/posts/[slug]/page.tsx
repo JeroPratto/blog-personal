@@ -5,9 +5,7 @@ const PostPage = async (props: any) => {
 	const { post } = await getPostMetaAndContent(slug)
 	return (
 		<div className='containermdx'>
-			<article className='prose max-w-none lg:prose-xl mx-auto prose-headings:text-white prose-p:text-white prose-li:text-white prose-code:text-white'>
-				{post.content}
-			</article>
+			<article className='prose-custom'>{post.content}</article>
 		</div>
 	)
 }

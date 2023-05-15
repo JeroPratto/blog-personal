@@ -7,13 +7,41 @@
 	box-sizing: border-box;
 	padding: 0;
 	margin: 0;
+	font-family: var(--font-family);
 }
+:root {
+	--font-family: -apple-system, BlinkMacSystemFont, segoe ui, Roboto, Helvetica,
+		Arial, sans-serif, apple color emoji, segoe ui emoji, segoe ui symbol;
+	--scroll-size: 10px;
+	--scroll-radius: 20px;
+	--scroll-track: rgb(255 255 255 / 10%);
+	--scroll-thumb: linear-gradient(45deg, #00aeff, #a68eff);
+	--bg-color: #fff;
+	--bg-color-footer: #ccc;
+	--text-color: #333333;
+	--title-color: #005799;
+	--switchThumb-color: #fff;
+	--switchRoot-color: #000;
+	--text-color-footer: #000;
+	--bg-color-inline-code: rgba(0, 0, 0, 6%);
+}
+.darkMode {
+	--bg-color: #000;
+	--bg-color-footer: #333;
+	--text-color: #fff;
+	--title-color: #0068b8;
+	--switchThumb-color: #000;
+	--switchRoot-color: #fff;
+	--text-color-footer: #fff;
+	--bg-color-inline-code: rgba(255, 255, 255, 0.8);
+}
+
 .containerMaxWidth {
 	width: 100%;
-	max-width: 1500px;
+	max-width: 1200px;
 }
 .bodyContainer {
-	background-color: #000;
+	background-color: var(--bg-color);
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -33,9 +61,33 @@ pre::-webkit-scrollbar-thumb {
 	border-radius: var(--scroll-thumb-radius, var(--scroll-radius));
 }
 
-:root {
-	--scroll-size: 10px;
-	--scroll-radius: 20px;
-	--scroll-track: rgb(255 255 255 / 10%);
-	--scroll-thumb: linear-gradient(45deg, #00aeff, #a68eff);
+@layer components {
+	.prose-custom {
+		@apply prose max-w-none md:prose-lg xl:prose-xl mx-auto;
+		color: var(--text-color);
+	}
+	.prose-custom h1,
+	.prose-custom h2,
+	.prose-custom h3,
+	.prose-custom h4,
+	.prose-custom h5,
+	.prose-custom h6 {
+		@apply text-[var(--title-color)];
+	}
+
+	.prose-custom p,
+	.prose-custom li {
+		@apply text-[var(--text-color)];
+	}
+	.prose-custom :not(pre) > code {
+		background-color: var(--bg-color-inline-code);
+		color: #1a1a1a;
+		padding: 5px;
+		border-radius: 0.3em;
+		white-space: normal;
+	}
+	.prose-custom :not(pre) > code::after,
+	.prose-custom :not(pre) > code::before {
+		content: '';
+	}
 }

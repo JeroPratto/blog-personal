@@ -1,16 +1,16 @@
 .container {
-	margin-top: 100px;
 	width: 100%;
-	padding: 50px 5%;
+	max-width: 1000px;
+	padding: 100px 2.5%;
 	display: flex;
 	justify-content: center;
 	align-items: flex-start;
 	flex-direction: column;
-	background-color: #222;
-	color: #aaa;
+	color: var(--text-color-footer);
 	gap: 20px;
+	font-weight: 600;
 }
 
 .title {
-	color: #fff;
+	color: var(--text-color-footer);
 }
