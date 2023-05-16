@@ -8,17 +8,15 @@ import * as Switch from '@radix-ui/react-switch'
 import github from 'public/github-icon.svg'
 import githubDark from 'public/github-icon-black.svg'
 import Image from 'next/image'
-import { getStateDarkMode, setStateDarkMode } from './utilities/stateDarkMode'
 
 export interface NavbarProps {}
 
 const Navbar: React.FC<NavbarProps> = () => {
 	const toggleTheme = () => {
 		const newDarkMode = !isDarkMode
-		setStateDarkMode(newDarkMode)
 		setIsDarkMode(newDarkMode)
 	}
-	const [isDarkMode, setIsDarkMode] = useState(getStateDarkMode())
+	const [isDarkMode, setIsDarkMode] = useState(false)
 	useEffect(() => {
 		isDarkMode
 			? document.body.classList.add('darkMode')

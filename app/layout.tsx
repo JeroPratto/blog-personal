@@ -1,7 +1,5 @@
 import { Footer, Navbar } from './components'
-import { Analytics } from '@vercel/analytics/react'
 import './globals.css'
-import { useState } from 'react'
 
 export const metadata = {
 	title: 'Notas | Jerónimo',
