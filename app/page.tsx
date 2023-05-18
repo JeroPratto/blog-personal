@@ -14,18 +14,14 @@ export default function Home() {
 			<h1 className={estilos.title}>Últimas notas</h1>
 			<ul className={estilos.containerList}>
 				{dataStorted.map((post) => (
-					<Link
-						href={`/posts/${post.slug}`}
-						className={estilos.link}
-						key={post.slug}
-					>
-						<li className={estilos.containerItem}>
+					<li className={estilos.containerItem} key={post.slug}>
+						<Link href={`/posts/${post.slug}`} className={estilos.link}>
 							<div className={estilos.itemTitleAndDesc}>
-								<h3 className={estilos.itemTitle}>{post.title}</h3>
+								<h2 className={estilos.itemTitle}>{post.title}</h2>
 								<p className={estilos.itemDesc}>{post.subtitle}</p>
 							</div>
-						</li>
-					</Link>
+						</Link>
+					</li>
 				))}
 			</ul>
 		</div>

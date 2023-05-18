@@ -25,8 +25,8 @@ const Navbar: React.FC<NavbarProps> = () => {
 
 	return (
 		<nav className={estilos.container}>
-			<ul className={estilos.listContainer}>
-				<li className={estilos.item}>
+			<div className={estilos.listContainer}>
+				<div className={estilos.item}>
 					<Link href='/' className={estilos.link}>
 						<Image
 							className={estilos.img}
@@ -35,9 +35,9 @@ const Navbar: React.FC<NavbarProps> = () => {
 						/>
 						Notas by Jero
 					</Link>
-				</li>
+				</div>
 				<div className={estilos.containerLastItems}>
-					<li className={estilos.item}>
+					<div className={estilos.item}>
 						<Link
 							href='https://github.com/JeroPratto'
 							target='_blank'
@@ -49,18 +49,19 @@ const Navbar: React.FC<NavbarProps> = () => {
 								alt='github'
 							/>
 						</Link>
-					</li>
-					<li>
+					</div>
+					<div>
 						<Switch.Root
 							checked={isDarkMode}
 							onCheckedChange={toggleTheme}
 							className={estilos.switchRoot}
+							aria-label='Change theme color'
 						>
 							<Switch.Thumb className={estilos.switchThumb} />
 						</Switch.Root>
-					</li>
+					</div>
 				</div>
-			</ul>
+			</div>
 		</nav>
 	)
 }
