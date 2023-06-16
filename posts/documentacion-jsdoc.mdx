@@ -1,0 +1,84 @@
+---
+title: 'Documentar un proyecto con JSDoc en React'
+subtitle: 'Explicacón de como documentar un proyecto de react-typescript con jsdoc'
+date: '2023-06-16'
+urlImg: '/lazy.webp'
+---
+
+# Documentar un proyecto con JSDoc en React
+
+JSDoc es un estándar de documentación de código para Javascript. Proporciona una forma estructurada de agregar comentarios y anotaciones al código para describir su funcionalidad, parámetros, tipos de datos y valores de retorno
+
+Pagina oficial : [`jsdoc.app`](https://jsdoc.app/)
+
+![jsdoc-example](/jsdoc-example.png)
+
+### Sintaxis
+
+Estos son algunos ejemplos que vamos a estar viendo pero hay muchos más (pagina oficial)
+
+- `@param`: Describe un parámetro de una función, indicando su nombre, tipo y una descripcion opcional.
+- `@returns`: Especifica el tipo de valor de retorno de una función.
+- `@type`: Define el tipo de una variable o propiedad
+- `@description`: Proporciona una descripción general del elemento documentado
+- `@example`: Incluye ejemplos de uso o ejemplos de código relacionados con el elemento documentado
+
+## Pasemos a la acción con algunos ejemplos
+
+En la primera linea podemos ver la descripción de la funcion, luego los parametros y lo que retorna
+
+```js
+/**
+ * Calcula la suma de dos números.
+ * @param {number} a - El primer número.
+ * @param {number} b - El segundo número.
+ * @returns {number} El resultado de la suma.
+ */
+
+const addTwoNumbers = (a, b) => a + b
+```
+
+En este ejemplo lo vamos a implementar en react
+
+```jsx
+import React from 'react'
+
+/**
+ * Componente de botón reutilizable.
+ * @param {Object} props - Propiedades del componente.
+ * @param {string} props.label - El texto del botón.
+ * @param {function} props.onClick - Función de manejo de clic del botón.
+ * @returns {JSX.Element} El elemento JSX del botón.
+ */
+function Button({ label, onClick }) {
+	return <button onClick={onClick}>{label}</button>
+}
+```
+
+Y ahora en react con typescript
+
+```tsx
+import React, { FC, MouseEvent } from 'react'
+
+/**
+ * Propiedades del componente Botón.
+ * @param {string} label - El texto del botón.
+ * @param {function} onClick - Función de manejo de clic del botón.
+ */
+
+interface CustomButtonProps {
+	label: string
+	onClick: (event: MouseEvent<HTMLButtonElement>) => void
+}
+
+/**
+ * Componente de botón reutilizable.
+ * @param {CustomButtonProps} CustomButtonProps
+ * @returns {JSX.Element} El elemento JSX del botón.
+ */
+const CustomButton: FC<CustomButtonProps> = ({ label, onClick }) => {
+	return <button onClick={onClick}>{label}</button>
+}
+
+export default CustomButton
+```
