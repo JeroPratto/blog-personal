@@ -1,22 +1,26 @@
 ---
-title: 'Redux y redux-toolkit'
+title: 'Redux y Redux Toolkit: Gestión del estado en una aplicación React'
 subtitle: 'Introducción a redux y redux-toolkit, con y sin manejo de persistencia'
 date: '2023-04-24'
 urlImg: '/redux.webp'
 ---
 
-# Redux y redux toolkit
+<small>2023-04-24</small>
 
-Redux sirve para gestionar el estado de nuestra aplicación, facilita la administración del estado global mediante un almacenamiento centralizado. ¿Cuándo lo usaría? Lo usaría cuando la información se necesita en toda nuestra aplicación. Si la información solo se necesita en una página, podemos usar context. Si es solo entre componentes, RxJS.
+# Redux y Redux Toolkit: Gestión del estado en una aplicación React
 
-## Descargas
+Redux es una biblioteca que se utiliza para gestionar el estado de una aplicación, facilitando la administración de un estado global a través de un almacenamiento centralizado. Se recomienda utilizar Redux cuando se necesita acceder a la información en toda la aplicación. Si la información solo se necesita en una página, se puede utilizar Context. Y si la información es necesaria entre componentes, se puede utilizar RxJS.
+
+## Descargas e instalación
 
 ```bash
 npm install redux react-redux
 npm install @reduxjs/toolkit
 ```
 
-## Disposición de Carpetas
+## Estructura de carpetas
+
+Es recomendable seguir una estructura de carpetas organizada para el uso de Redux. A continuación, se muestra una posible disposición de las carpetas en el proyecto:
 
 - src/
 - models/
@@ -26,9 +30,11 @@ npm install @reduxjs/toolkit
   - states/
     - user-slice.ts
 
-## Parece no tener sentido
+## Implementación
 
-Por cómo te lo voy a presentar, parece no tener sentido, pero de a poco empieza a cerrar
+A continuación, se presentará un ejemplo paso a paso de cómo utilizar Redux y Redux Toolkit en una aplicación React.
+
+En el archivo store.ts dentro de la carpeta redux, configuramos el almacenamiento de Redux utilizando configureStore de Redux Toolkit. Definimos el estado inicial y los reducers necesarios para el manejo del estado. Por ejemplo:
 
 ```ts:redux/store.ts
 import { User } from '@/models'
@@ -46,7 +52,7 @@ export default configureStore<AppStore>({
 })
 ```
 
-Con este provider vamos a envolver nuestra app
+En el componente raíz de la aplicación, importamos el proveedor Provider de react-redux y envolvemos la aplicación con el proveedor. Pasamos el almacenamiento store como prop al proveedor. Por ejemplo:
 
 ```tsx:App
 import { Provider } from 'react-redux'
@@ -162,3 +168,7 @@ export const home = () => {
   )
 }
 ```
+
+En este ejemplo, utilizamos useSelector para acceder al estado del usuario y useDispatch para despachar las acciones addUser y resetUser. Podemos mostrar la información del usuario y utilizar los botones para agregar un usuario o restablecer el usuario.
+
+Con esto, hemos implementado Redux y Redux Toolkit en una aplicación React. Redux nos permite gestionar el estado de forma centralizada, facilitando el acceso a la información en toda la aplicación y mejorando la escalabilidad y mantenibilidad del código.

@@ -5,17 +5,19 @@ date: '2023-06-16'
 urlImg: '/lazy.webp'
 ---
 
+<small>2023-06-16</small>
+
 # Documentar un proyecto con JSDoc en React
 
-JSDoc es un estándar de documentación de código para Javascript. Proporciona una forma estructurada de agregar comentarios y anotaciones al código para describir su funcionalidad, parámetros, tipos de datos y valores de retorno
+JSDoc es un estándar de documentación de código para JavaScript. Proporciona una forma estructurada de agregar comentarios y anotaciones al código para describir su funcionalidad, parámetros, tipos de datos y valores de retorno.
 
-Pagina oficial : [`jsdoc.app`](https://jsdoc.app/)
+Puedes encontrar más información en la página oficial de JSDoc: [`jsdoc.app`](https://jsdoc.app/)
 
 ![jsdoc-example](/jsdoc-example.png)
 
 ### Sintaxis
 
-Estos son algunos ejemplos que vamos a estar viendo pero hay muchos más (pagina oficial)
+Estos son algunos ejemplos que vamos a ver pero hay muchos más (consulta la página oficial)
 
 - `@param`: Describe un parámetro de una función, indicando su nombre, tipo y una descripcion opcional.
 - `@returns`: Especifica el tipo de valor de retorno de una función.
@@ -23,9 +25,9 @@ Estos son algunos ejemplos que vamos a estar viendo pero hay muchos más (pagina
 - `@description`: Proporciona una descripción general del elemento documentado
 - `@example`: Incluye ejemplos de uso o ejemplos de código relacionados con el elemento documentado
 
-## Pasemos a la acción con algunos ejemplos
+## Ejemplos de documentación en JSDoc
 
-En la primera linea podemos ver la descripción de la funcion, luego los parametros y lo que retorna
+En el primer ejemplo, podemos ver la descripción de una función, seguida de los parámetros y el valor del retorno
 
 ```js
 /**
@@ -38,7 +40,7 @@ En la primera linea podemos ver la descripción de la funcion, luego los paramet
 const addTwoNumbers = (a, b) => a + b
 ```
 
-En este ejemplo lo vamos a implementar en react
+En este ejemplo, vamos a implementar la documentación en un componente de React
 
 ```jsx
 import React from 'react'
@@ -55,7 +57,7 @@ function Button({ label, onClick }) {
 }
 ```
 
-Y ahora en react con typescript
+Y ahora, veamos cómo se documenta un componente de React utilizando Typescript
 
 ```tsx
 import React, { FC, MouseEvent } from 'react'
@@ -82,3 +84,5 @@ const CustomButton: FC<CustomButtonProps> = ({ label, onClick }) => {
 
 export default CustomButton
 ```
+
+En resumen, JSDoc nos permite documentar nuestros proyectos de React de manera estructurada y precisa. Al agregar comentarios y anotaciones con las etiquetas adecuadas, podemos describir la funcionalidad, los parámetros, los tipos de datos y los valores de retorno de nuestras funciones y componentes. Esto ayuda a mejorar la comprensión del código y facilita el trabajo en equipo al proporcionar una documentación clara y concisa.

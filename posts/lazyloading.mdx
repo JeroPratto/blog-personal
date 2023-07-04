@@ -1,19 +1,21 @@
 ---
-title: 'Lazy loading in Routes'
+title: 'Carga diferida (Lazy Loading) en las rutas'
 subtitle: 'Utilizar lazy loading en componentes cargados por <Route/>'
 date: '2023-04-23'
 urlImg: '/lazy.webp'
 ---
 
-# Lazy loading in Routes
+<small>2023-04-23</small>
 
-vamos a ver como usar el lazy loading dentro de una aplicación react
+# Carga diferida (Lazy Loading) en las rutas
+
+Vamos a ver cómo utilizar la carga diferida (Lazy Loading) dentro de una aplicación React.
 
 ### ¿Qúe es el lazy loading?
 
-Segun chatGPT: El "lazy loading" o carga diferida es una técnica de optimización que consiste en cargar y mostrar elementos (como imágenes, componentes o módulos) solo cuando son necesarios, es decir, cuando están en el área visible del usuario o próximos a serlo. Esto ayuda a mejorar la velocidad de carga inicial y el rendimiento general de una aplicación web al reducir los recursos cargados innecesariamente.
+El lazy loading, es una técnica de optimización que consiste en cargar y mostrar elementos (como imágenes, componentes o módulos) solo cuando son necesarios, es decir, cuando están en el área visible del usuario o próximos a serlo. Esta técnica ayuda a mejorar la velocidad de carga inicial y el rendimiento general de una aplicación web al reducir los recursos cargados innecesariamente.
 
-Hoy lo vamos a ver solo en las rutas
+En el ejemplo que veremos a continuación, nos enfocaremos en el uso del lazy loading en las rutas de una aplicación React.
 
 ```tsx
   import { lazy, Suspense } from 'react'
@@ -29,13 +31,22 @@ Hoy lo vamos a ver solo en las rutas
         // El Suspense sirve para que se cargue un elemento mientras carga otro.
         // Por ejemplo, se puede poner un spinner o una pantalla de carga.
         <Suspense fallback={}>
-        <BroweserRouter>
-          <Routes>
-            <Route path="/home" element={<Home/>}/>
-            <Route path="/login" element={<Login />}>
-          </Routes>
-        </BroweserRouter>
+          <BroweserRouter>
+            <Routes>
+              <Route path="/home" element={<Home/>}/>
+              <Route path="/login" element={<Login />}>
+            </Routes>
+          </BroweserRouter>
+        </Suspense>
       </div>
     )
   }
 ```
+
+En este ejemplo, utilizamos la función lazy de React para importar los componentes Login y Home de forma diferida. Esto significa que estos componentes no se cargarán hasta que sean necesarios, es decir, cuando el usuario acceda a las rutas correspondientes.
+
+Además, envolvemos nuestras rutas en el componente Suspense, el cual nos permite mostrar un componente de carga (como un spinner) mientras se carga el componente diferido. En este caso, hemos utilizado <Spinner /> como ejemplo, pero puedes reemplazarlo con el componente de carga de tu elección.
+
+Al utilizar la carga diferida en las rutas, podemos mejorar el rendimiento de nuestra aplicación React, ya que solo cargamos los componentes necesarios en el momento adecuado, evitando la carga innecesaria de recursos.
+
+Recuerda que es importante evaluar el uso de la carga diferida en función de las necesidades específicas de tu aplicación y considerar factores como el tamaño de los componentes y la experiencia del usuario al cargarlos bajo demanda.

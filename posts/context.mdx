@@ -5,11 +5,18 @@ date: '2023-04-23'
 urlImg: '/react-context.webp'
 ---
 
+<small>2023-04-23</small>
+
 # Context
 
-Context es una funcionalidad que permite pasar datos de un componente a otro sin tener que pasar los datos explícitamente a través de las propiedades en cada nivel de la jerarquía de componentes. ¿Cuándo lo usaría? Bueno, lo usaría cuando la información es necesaria en toda una página/vista. Si la información fuera necesaria en toda la aplicación, usaría Redux. Pero si fuera necesaria solo entre algunos componentes, usaría RxJS.
+El Context es una funcionalidad que facilita la transferencia de datos entre componentes
+sin tener que pasar explícitamente los datos a través de las propiedades en cada
+nivel de la jerarquía de componentes. ¿Cuándo deberías utilizarlo? Bueno, deberías
+usarlo cuando la información sea necesaria en toda una página o vista. Si la información
+fuera necesaria en toda la aplicación, sería recomendable utilizar Redux. Sin embargo,
+si solo se necesita entre algunos componentes, se puede utilizar RxJS.
 
-## Toma de contacto
+## Configuración inicial
 
 ```js:UserContext.js
 // creamos el contexto
@@ -37,7 +44,7 @@ export const useUserContext = () => {
 }
 ```
 
-Ahora pongamos el provider
+Ahora, veamos cómo utilizar el proveedor en una página
 
 ```js:page.js
 import UserProvider from ...
@@ -53,7 +60,7 @@ function home() {
 }
 ```
 
-Y para usarlo en un componente hacemos asi
+Y para usarlo en un componete, hagamos lo siguiente:
 
 ```js:componente1
 function componente1() {
@@ -62,3 +69,5 @@ function componente1() {
   // Ahora se puede usar como un useState en toda la pagina
 }
 ```
+
+En resumen, el context nos permite compartir datos entre componentes sin tener que pasar explícitamente los datos a través de las propiedades en cada nivel de la jerarquía de componentes. Al crear un contexto y envolver nuestra aplicación con el proveedor, podemos acceder a los valores del contexto en cualquier componente utilizando la función useUserContext(). Esto nos permite utilizar los datos del contexto, como el usuario y una función para establecer el usuario, en diferentes partes de nuestra aplicación donde sea necesario.

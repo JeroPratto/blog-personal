@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from 'react'
 import estilos from './Navbar.module.css'
 import Link from 'next/link'
-import home from 'public/home-icon.svg'
-import homeDark from 'public/home-icon-black.svg'
+import home from 'public/home-white.svg'
+import homeDark from 'public/home-black.svg'
 import * as Switch from '@radix-ui/react-switch'
 import github from 'public/github-icon.svg'
 import githubDark from 'public/github-icon-black.svg'
@@ -16,11 +16,11 @@ const Navbar: React.FC<NavbarProps> = () => {
 		const newDarkMode = !isDarkMode
 		setIsDarkMode(newDarkMode)
 	}
-	const [isDarkMode, setIsDarkMode] = useState(false)
+	const [isDarkMode, setIsDarkMode] = useState(true)
 	useEffect(() => {
 		isDarkMode
-			? document.body.classList.add('darkMode')
-			: document.body.classList.remove('darkMode')
+			? document.body.classList.remove('whiteMode')
+			: document.body.classList.add('whiteMode')
 	}, [isDarkMode])
 
 	return (
@@ -33,7 +33,7 @@ const Navbar: React.FC<NavbarProps> = () => {
 							src={isDarkMode ? home : homeDark}
 							alt='Home'
 						/>
-						Notas by Jero
+						Notas
 					</Link>
 				</div>
 				<div className={estilos.containerLastItems}>

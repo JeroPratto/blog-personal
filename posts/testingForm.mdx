@@ -1,13 +1,15 @@
 ---
-title: 'Testing a un Form'
+title: 'Testing de un formulario en React'
 subtitle: 'Cómo testear un formulario en React usando las librerías de Testing Library y jest. '
 date: '2023-04-17'
 urlImg: '/testing-form.webp'
 ---
 
-# Testing a un Form
+<small>2023-04-17</small>
 
-En este post, voy a tratar de explicar cómo funciona y qué es el `screen, render, expect` y cómo implementarlo para probar un formulario.
+# Testing de un formulario en React
+
+En este post, se explica cómo utilizar screen, render y expect para realizar pruebas a un formulario en React.
 
 ## Render, Screen, Expect, Mocks
 
@@ -17,15 +19,15 @@ Como su nombre indica, lo que va a hacer esto es renderizar el componente que no
 
 - Screen
 
-El screen nos permite actuar sobre nuestro render; es algo parecido al container que nos devuelve la función Render, pero con algunos añadidos que nos ofrecen una mayor comodidad al testear los componentes.
+screen es una utilidad que nos permite actuar sobre el contenedor renderizado. Proporciona métodos para buscar elementos en el DOM, como getByRole, getByTestId, etc. Esto facilita la interacción y la búsqueda de elementos específicos para las pruebas.
 
 - Expect
 
-Podemos dividir Expect en dos partes: en la primera, `expect(container)`, le indicamos qué es lo que tiene que observar y, en la segunda, `expect(container).toBeInTheDocument()`, qué tiene que esperar que pase. En este caso, le decimos que mire el container y luego verifique si está en el documento.
+La función expect se utiliza para hacer afirmaciones sobre los elementos del DOM. En la primera parte de la afirmación, se indica qué elemento se va a observar, y en la segunda parte se especifica qué se espera que suceda. Por ejemplo, expect(elemento).toBeInTheDocument() verifica si el elemento está presente en el documento.
 
 - Mocks
 
-Los mocks serán información controlada que proporcionaremos a los componentes para obtener respuestas predecibles.
+Los mocks son datos controlados que se proporcionan a los componentes para obtener respuestas predecibles durante las pruebas.
 
 ## Carpetas y archivos a crear
 
@@ -34,7 +36,7 @@ Los mocks serán información controlada que proporcionaremos a los componentes 
 - \_\_mocks\_\_ /
   - LoginForm.mock.ts
 
-## Toma de contacto
+## Ejemplo básico
 
 ```tsx:LoginForm.test.tsx
 import { render } from '@testing-library/react'
@@ -79,7 +81,7 @@ describe('LoginForm', () => {
 	// se ejecuta despues del test y resetea los mocks
 	afterEach(cleanup)
 	afterEach(jest.clearAllMocks)
-	// Este beforeAll es para que se ejecute siempre antes de cualquier test y no tener que repetir constantemente el render
+	// Este beforeEach es para que se ejecute siempre antes de cualquier test y no tener que repetir constantemente el render
 	beforeEach(() => {
 		render(<LoginForm />)
 	})
@@ -107,6 +109,7 @@ describe('LoginForm', () => {
 		const submitButton = screen.getByRole('button', { name: /Iniciar sesion/i })
 
 		expect(submitButton).tobeDisabled()
+
 		// Ahora simulamos que el usuario escribe en el form con la información del mock
 		await userEvent.type(usernameInput, LoginFormMock.username)
 		await userEvent.type(usernameInput, LoginFormMock.password)

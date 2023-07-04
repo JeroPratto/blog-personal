@@ -1,23 +1,27 @@
 ---
-title: 'RxJs en react'
+title: 'RxJS: Comunicación de datos entre componentes en React'
 subtitle: 'Patron observable, implementación de RxJS entre emisor y escucha'
 date: '2023-04-24'
 urlImg: '/rxjs.webp'
 ---
 
-# RxJS
+<small>2023-04-24</small>
 
-RxJS se basa en el patrón observable, que es una secuencia de valores que se emiten con el tiempo. Los observables se pueden utilizar para representar flujos de datos como eventos de usuario, solicitudes de red, entre otros. ¿Cuándo lo usaría? Bueno, lo usaría cuando la comunicación de datos es entre dos o unos pocos componentes. Si la información es para toda una página o vista, usaría Context y si es para toda la aplicación, usaría Redux.
+# RxJS: Comunicación de datos entre componentes en React
 
-## Descarga
+RxJS es una biblioteca de JavaScript que se basa en el patrón observable. Este patrón se utiliza para representar flujos de datos que emiten valores con el tiempo. RxJS es especialmente útil cuando la comunicación de datos se produce entre dos o unos pocos componentes de una aplicación. Si la información es necesaria para toda una página o vista, se recomienda utilizar Context. Y si la información es necesaria para toda la aplicación, se recomienda utilizar Redux.
+
+## Descarga e instalación
 
 ```bash
 npm install rxjs
 ```
 
-## Toma de contacto
+## Ejemplo básico
 
-Hoy vamos a ver algo muy sencillo mas que nada la base, pero RxJS tiene mucho más para dar
+A continuación, se presenta un ejemplo básico de cómo utilizar RxJS para la comunicación de datos entre componentes en React.
+
+Creamos una clase SubjectManager en un archivo, por ejemplo, SubjectManager.js. Utilizaremos clases para gestionar los observables. Esta clase tiene un Subject que actúa como un canal de comunicación. Por ejemplo:
 
 ```js:SubjectManager.js
 import { Subject } from 'rxjs'
@@ -39,7 +43,7 @@ export class SubjectManager {
 }
 ```
 
-Ahora vamos a hacer el canal de comunicación
+Creamos un servicio en otro archivo, por ejemplo, informationService.js. En este servicio, creamos una instancia de SubjectManager para compartir la información entre componentes. Por ejemplo:
 
 ```js:informationService.js
 import { SubjectManager } from ...
@@ -49,7 +53,7 @@ export const informationService = new SubjectManager()
 // la misma información
 ```
 
-Nos subscribimos y lo usamos como escucha
+En el componente que desea escuchar la información, nos suscribimos al observable utilizando getSubject() del servicio. Utilizamos useEffect para suscribirnos y mostrar la información cuando cambie. Por ejemplo:
 
 ```js:componenteEscucha.js
 import { informationService } from ...
@@ -76,7 +80,7 @@ function componenteEscucha() {
 }
 ```
 
-Ahora lo usamos para emitir
+En el componente que desea enviar información, importamos el servicio y utilizamos setSubject() para enviar los datos. Por ejemplo:
 
 ```js:componenteEmisor
 import { informationService } from ...
@@ -93,3 +97,7 @@ function componenteEmisor() {
   )
 }
 ```
+
+En este ejemplo, creamos una instancia de SubjectManager en el servicio informationService. El componente ComponenteEscucha se suscribe al observable utilizando getSubject() y muestra la información cada vez que cambia. El componente ComponenteEmisor utiliza setSubject() para enviar los datos al observable.
+
+Con RxJS, hemos implementado una comunicación de datos entre componentes en React de manera sencilla utilizando el patrón observable. RxJS ofrece muchas más funcionalidades y operadores para trabajar con flujos de datos, lo que lo convierte en una herramienta poderosa para gestionar la comunicación entre componentes en una aplicación React.
