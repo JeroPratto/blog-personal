@@ -16,11 +16,11 @@ const Navbar: React.FC<NavbarProps> = () => {
 		const newDarkMode = !isDarkMode
 		setIsDarkMode(newDarkMode)
 	}
-	const [isDarkMode, setIsDarkMode] = useState(true)
+	const [isDarkMode, setIsDarkMode] = useState(false)
 	useEffect(() => {
 		isDarkMode
-			? document.body.classList.remove('whiteMode')
-			: document.body.classList.add('whiteMode')
+			? document.body.classList.add('darkMode')
+			: document.body.classList.remove('darkMode')
 	}, [isDarkMode])
 
 	return (

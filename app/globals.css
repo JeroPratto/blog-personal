@@ -16,14 +16,14 @@
 	--scroll-radius: 20px;
 	--scroll-track: rgb(255 255 255 / 10%);
 	--scroll-thumb: linear-gradient(45deg, #00aeff, #a68eff);
-	--bg-color: #000;
-	--bg-color-footer: #333;
-	--text-color: #fff;
-	--title-color: #0068b8;
-	--switchThumb-color: #000;
-	--switchRoot-color: #fff;
-	--text-color-footer: #fff;
-	--bg-color-inline-code: rgba(255, 255, 255, 0.8);
+	--bg-color: #fff;
+	--bg-color-footer: #ccc;
+	--text-color: #333333;
+	--title-color: #005799;
+	--switchThumb-color: #fff;
+	--switchRoot-color: #000;
+	--text-color-footer: #000;
+	--bg-color-inline-code: rgba(0, 0, 0, 6%);
 }
 .whiteMode {
 	--bg-color: #fff;
@@ -34,6 +34,16 @@
 	--switchRoot-color: #000;
 	--text-color-footer: #000;
 	--bg-color-inline-code: rgba(0, 0, 0, 6%);
+}
+.darkMode {
+	--bg-color: #000;
+	--bg-color-footer: #333;
+	--text-color: #fff;
+	--title-color: #0068b8;
+	--switchThumb-color: #000;
+	--switchRoot-color: #fff;
+	--text-color-footer: #fff;
+	--bg-color-inline-code: rgba(255, 255, 255, 0.8);
 }
 a {
 	color: #00aeff !important;
