@@ -1,0 +1,78 @@
+---
+title: 'Implementación de React Router DOM con TypeScript para rutas públicas y privadas'
+subtitle: 'Aprende a proteger y gestionar el acceso a las rutas en tu aplicación de React utilizando React Router DOM y TypeScript'
+date: '2023-07-5'
+urlImg: '/react-context.webp'
+---
+
+# Implementación de React Router DOM con TypeScript para rutas públicas y privadas
+
+Vamos a usar el enrutador de React para manejar la navegación entre diferentes componentes de la aplicación e implementaremos un "guard" de autenticación para proteger las rutas privadas. Además, utilizaremos Redux para gestionar el estado del usuario.
+
+## Descarga e instalación
+
+```bash
+npm i react-router-dom
+npm i @types/react-router-dom
+```
+
+## Configuración inicial
+
+En el archivo App.tsx, envolveremos nuestra aplicación con el componente BrowserRouter de React Router DOM y definiremos nuestras rutas.
+
+```tsx:app.tsx
+  function App(){
+    <BroweserRouter>
+      <Routes>
+        <Route path="/" element={<Home />}>
+        <Route path="/login" element={<Login />}>
+        <Route path="/dashboard" element={<Dashboard />}>
+        <Route path="*" element={<Erro404 />}>
+      </Routes>
+    </BroweserRouter>
+  }
+
+```
+
+En este ejemplo, tenemos una ruta para la página de inicio (Home), una ruta para el inicio de sesión (Login), una ruta para la página de error 404 que aca va a ir todo lo que no sea alguna de las otras rutas (Erro404), y una ruta para el panel de control (Dashboard).
+
+Ahora vamos a crear un componente AuthGuard que actuará como un guard de autenticación para nuestras rutas privadas. El componente AuthGuard verificará si el usuario está autenticado antes de permitir el acceso a las rutas protegidas.
+
+```tsx:guard/auth-guard.tsx
+  import { useSelector } from 'react-redux';
+  import { Outlet, Navigate } from "react-router-dom"
+
+  export const AuthGuard = () => {
+    // Vemos si esta logueado mirando el store, pero se puede usar cualquier otro metodo
+    const userState = useSelector((store : AppStore) => store.user)
+    return userState.id ? <Outlet /> : <Navigate replace to='/login'>
+  }
+
+  export default AuthGuard
+```
+
+`<Outlet />`: representa las rutas secundarias anidadas dentro del guard.
+
+`<Navigate />`: si el usuario no está autenticado lo redirigimos al login
+
+Ahora que hemos creado nuestro AuthGuard, podemos utilizarlo para proteger nuestras rutas privadas. En el archivo App.tsx, envolvemos las rutas privadas dentro de un componente Route con el elemento AuthGuard
+
+```tsx:App.tsx
+  function App(){
+    <BroweserRouter>
+      <Routes>
+        // Rutas publicas
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />}/>
+        <Route path="*" element={<Erro404 />}/>
+
+        // Rutas privadas
+        <Route element={<AuthGuard />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
+      </Routes>
+    </BroweserRouter>
+  }
+```
+
+En este ejemplo, envolvemos la ruta /dashboard con el componente AuthGuard, lo que significa que esta ruta ahora está protegida y solo se mostrará si el usuario está autenticado.
