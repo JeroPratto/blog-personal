@@ -11,6 +11,11 @@ const Footer: React.FC<FooterProps> = () => {
 				<ul>
 					<li>
 						<Link href='https://github.com/JeroPratto' target='_blank'>
+							Linkedin: Jeronimo Pratto
+						</Link>
+					</li>
+					<li>
+						<Link href='https://github.com/JeroPratto' target='_blank'>
 							Github: JeroPratto
 						</Link>
 					</li>

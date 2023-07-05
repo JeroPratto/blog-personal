@@ -8,6 +8,8 @@ import * as Switch from '@radix-ui/react-switch'
 import github from 'public/github-icon.svg'
 import githubDark from 'public/github-icon-black.svg'
 import Image from 'next/image'
+import linkedinWhite from 'public/linkedin-white.svg'
+import linkedinBlack from 'public/linkedin-black.svg'
 
 export interface NavbarProps {}
 
@@ -47,6 +49,19 @@ const Navbar: React.FC<NavbarProps> = () => {
 								className={estilos.img}
 								src={isDarkMode ? github : githubDark}
 								alt='github'
+							/>
+						</Link>
+					</div>
+					<div className={estilos.item}>
+						<Link
+							href='https://www.linkedin.com/in/jeronimo-pratto/'
+							target='_blank'
+							className={estilos.link}
+						>
+							<Image
+								className={estilos.img}
+								src={isDarkMode ? linkedinWhite : linkedinBlack}
+								alt='linkedin'
 							/>
 						</Link>
 					</div>
