@@ -7,7 +7,7 @@ export const generateMetadata = (props: any) => {
 	const data = getPostContent(slug)
 	const matterResult = matter(data)
 	return {
-		title: `Notas | ${matterResult.data.title}`,
+		title: matterResult.data.title,
 		description: matterResult.data.subtitle,
 	}
 }
