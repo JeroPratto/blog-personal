@@ -1,0 +1,146 @@
+---
+title: 'Routing en Next.js 13 con middleware: Rutas privadas y públicas'
+subtitle: 'Aprende a proteger y gestionar el acceso a las rutas en tu aplicación de Next.js 13 utilizando Middleware y cookies'
+date: '2023-07-10'
+urlImg: '/react-context.webp'
+---
+
+<small>2023-07-10</small>
+
+# Routing en Next.js 13 con middleware: Rutas privadas y públicas
+
+En este post vas a aprender cómo implementar el enrutamiento de páginas privadas y públicas en Next.js utilizando cookies y un middleware.
+
+## Descargas e instalación
+
+```bash
+npm install js-cookie
+npm i --save-dev @types/js-cookie
+```
+
+## Disposicón de archivos y carpetas
+
+Un aspecto importante a tener en cuenta es que el middleware debe estar en el mismo nivel que la carpeta "app". Si estás utilizando la carpeta "src", deberá estar dentro de "src" y al mismo nivel que "app".
+
+- middleware.ts
+- app/
+  - page.tsx
+  - admin/
+    - page.tsx
+  - Contexts/
+    - authContext.tsx
+  - login/
+    - page.tsx
+
+## Configuración del context
+
+El context en sí no requiere ninguna configuración especial para el enrutamiento, pero lo incluiré para que puedas ver cómo lo implementé. Cabe mencionar que no estoy devolviendo ni utilizando la cookie ni el estado en este ejemplo, pero podrías hacerlo según tus necesidades.
+
+```tsx:Contexts/authContext.tsx
+'use client'
+
+import { ReactNode, createContext, useMemo } from 'react'
+import Cookies from 'js-cookie'
+
+export type AuthContextProviderProps = {
+	children: ReactNode
+}
+
+export const AuthContext = createContext({
+	Login: (authTokens: string) => {},
+	Logout: () => {},
+})
+
+export default function AuthContextProvider({
+	children,
+}: AuthContextProviderProps) {
+
+  const Login = (authTokens: string) => {
+			Cookies.set('authTokens', JSON.stringify(authTokens))
+	}
+
+  const Logout = () => {
+		Cookies.remove('authTokens')
+	}
+
+  const value = useMemo(
+		() => ({
+			Login,
+			Logout,
+		}),
+		[Login, Logout],
+	)
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+}
+```
+
+## Middleware
+
+El middleware se encarga de interceptar las solicitudes de acceso a una página y determinar cómo procesarlas. En este caso, si intentamos acceder a "/admin" sin un token de autenticación, seremos redirigidos a "/login", y si tenemos un token y tratamos de acceder a "/login", seremos redirigidos a "/admin".
+
+Puedes encontrar más información en la <a target="_blank" href='https://nextjs.org/docs/app/building-your-application/routing/middleware'>documentación oficial</a>.
+
+```tsx:middleware.ts
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+
+export function middleware(request: NextRequest) {
+	const authTokens = request.cookies.get('authTokens')?.value
+
+	if (request.nextUrl.pathname.startsWith('/admin') && !authTokens) {
+		const response = NextResponse.redirect(new URL('/login', request.url))
+		response.cookies.delete('authTokens')
+		return response
+	}
+	if (authTokens && request.nextUrl.pathname.startsWith('/login')) {
+		const response = NextResponse.redirect(new URL('/admin', request.url))
+		return response
+	}
+}
+// Estas son las rutas sobre la que actua el middleware
+export const config = {
+	matcher: ['/login', '/admin'],
+}
+```
+
+## Uso
+
+En este ejemplo, veremos un componente que contiene un formulario para simular un inicio de sesión.
+
+```tsx:login/page.tsx
+'use client'
+import { useRouter } from 'next/navigation'
+import { FormEvent, useContext } from 'react'
+import { AuthContext } from '../Contexts/authContext'
+
+export default function Login() {
+  const { Login } = useContext(AuthContext)
+	const router = useRouter()
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const input = event.currentTarget.elements.namedItem('name',) as HTMLInputElement
+    const name = input.value
+    // Aca nos deberian dar el token.
+    const response = await ConectBackend(name)
+    const token = await response.json()
+    Login(token)
+    router.refresh()
+    router.push('/admin')
+  }
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input name='name'>
+        <button>Login</button>
+      </form>
+    </div>
+  )
+}
+```
+
+En este ejemplo falta agregar manejo de errores para el caso de credenciales incorrectas o cuando el backend no responda, pero esto es solo una demostración.
+
+En resumen, ahora tendrás rutas privadas y públicas en tu aplicación de Next.js 13.
