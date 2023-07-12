@@ -1,7 +1,9 @@
+// 'use client'
 import Link from 'next/link'
 import { getPostMetaData } from './utilities'
 import estilos from './styles/home.module.css'
 import dataSorted from './utilities/dataSorted'
+import { TitleList } from './components/TitleList'
 
 export default function Home() {
 	const postMetada = getPostMetaData()
@@ -9,7 +11,10 @@ export default function Home() {
 	return (
 		<div className={estilos.container}>
 			<h1 className={estilos.title}>Últimas notas</h1>
-			<ul className={estilos.containerList}>
+			{/* <form>
+				<input value={inputText} onChange={handleInputChange} />
+			</form> */}
+			{/* <ul className={estilos.containerList}>
 				{newDataSorted.map((post) => (
 					<li className={estilos.containerItem} key={post.slug}>
 						<Link href={`/posts/${post.slug}`} className={estilos.link}>
@@ -20,7 +25,8 @@ export default function Home() {
 						</Link>
 					</li>
 				))}
-			</ul>
+			</ul> */}
+			<TitleList posts={newDataSorted} />
 		</div>
 	)
 }

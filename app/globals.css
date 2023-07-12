@@ -16,6 +16,7 @@
 	--scroll-radius: 20px;
 	--scroll-track: rgb(255 255 255 / 10%);
 	--scroll-thumb: linear-gradient(45deg, #00aeff, #a68eff);
+	--max-width: 1000px;
 	--bg-color: #fff;
 	--bg-color-footer: #ccc;
 	--text-color: #333333;
@@ -50,7 +51,7 @@ a {
 }
 .containerMaxWidth {
 	width: 100%;
-	max-width: 1200px;
+	max-width: var(--max-width);
 }
 .bodyContainer {
 	background-color: var(--bg-color);

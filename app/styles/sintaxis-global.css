@@ -4,10 +4,10 @@
 
 .containermdx {
 	background-color: var(--bg-color);
-	padding: 100px 2%;
+	padding: 50px 2%;
 }
 .containermdx article {
-	max-width: 1000px;
+	max-width: var(--max-width);
 }
 .containermdx h2,
 .containermdx h3,

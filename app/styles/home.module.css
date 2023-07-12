@@ -1,6 +1,6 @@
 .container {
 	width: 100%;
-	max-width: 1000px;
+	max-width: var(--max-width);
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -17,44 +17,12 @@
 	color: var(--text-color-footer);
 }
 
-.containerList {
-	width: 100%;
-	display: flex;
-	justify-content: flex-start;
-	align-items: flex-start;
-	flex-direction: column;
-	gap: 30px;
-}
-
 .link {
 	width: 100%;
-}
-
-.containerItem {
-	border-bottom: 1px solid var(--text-color-footer);
-	width: 100%;
-	max-width: 800px;
-	display: flex;
-	gap: 20px;
 }
 
 .containerImg {
 	position: relative;
 	height: 50px;
 	width: 50px;
-}
-
-.itemTitleAndDesc {
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-start;
-	flex-direction: column;
-	padding: 10px 0;
-}
-.itemTitle {
-	color: var(--title-color);
-	font-size: 1.5em;
-}
-.itemDesc {
-	color: var(--text-color-footer);
 }
