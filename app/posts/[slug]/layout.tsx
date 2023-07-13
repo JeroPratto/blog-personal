@@ -19,8 +19,8 @@ export const generateMetadata = (props: any) => {
 			images: [
 				{
 					url: `https://blog-personal-jero.vercel.app/postImages/${matterResult.data.urlImg}`,
-					width: 800,
-					heigth: 600,
+					width: 1200,
+					heigth: 630,
 				},
 			],
 		},
