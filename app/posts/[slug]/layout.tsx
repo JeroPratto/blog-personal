@@ -9,6 +9,29 @@ export const generateMetadata = (props: any) => {
 	return {
 		title: matterResult.data.title,
 		description: matterResult.data.subtitle,
+		openGraph: {
+			title: matterResult.data.title,
+			description: matterResult.data.subtitle,
+			url: 'https://blog-personal-jero.vercel.app/',
+			type: 'article',
+			publishedTime: matterResult.data.date,
+			siteName: 'Notas | Jerónimo',
+			images: [
+				{
+					url: `https://blog-personal-jero.vercel.app/postImages/${matterResult.data.urlImg}`,
+					width: 800,
+					heigth: 600,
+				},
+			],
+		},
+		twitter: {
+			card: 'summary_large_image',
+			title: matterResult.data.title,
+			description: matterResult.data.subtitle,
+			images: [
+				`https://blog-personal-jero.vercel.app/postImages/${matterResult.data.urlImg}`,
+			],
+		},
 	}
 }
 export default function RootLayout({
