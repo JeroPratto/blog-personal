@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-  <loc>https://blog-personal-jero.vercel.app/</loc>
+  <loc>https%3A%2F%2Fblog-personal-jero.vercel.app%2F</loc>
   <lastmod>2023-07-16</lastmod>
   <changefreq>never</changefreq>
 </url>
 <url>
-  <loc>https://blog-personal-jero.vercel.app/posts/permisos-react-router-dom</loc>
+  <loc>https%3A%2F%2Fblog-personal-jero.vercel.app%2Fposts%2Fpermisos-react-router-dom</loc>
   <lastmod>2023-07-16</lastmod>
   <changefreq>never</changefreq>
 </url>
 <url>
-  <loc>https://blog-personal-jero.vercel.app/posts/routing-nextjs</loc>
+  <loc>https%3A%2F%2Fblog-personal-jero.vercel.app%2Fposts%2Frouting-nextjs</loc>
   <lastmod>2023-07-16</lastmod>
   <changefreq>never</changefreq>
 </url>
 <url>
-  <loc>https://blog-personal-jero.vercel.app/posts/documentacion-jsdoc</loc>
+  <loc>https%3A%2F%2Fblog-personal-jero.vercel.app%2Fposts%2Fdocumentacion-jsdoc</loc>
   <lastmod>2023-07-16</lastmod>
   <changefreq>never</changefreq>
 </url>
 <url>
-  <loc>https://blog-personal-jero.vercel.app/posts/redux</loc>
+  <loc>https%3A%2F%2Fblog-personal-jero.vercel.app%2Fposts%2Fredux</loc>
   <lastmod>2023-07-16</lastmod>
   <changefreq>never</changefreq>
 </url>
 <url>
-  <loc>https://blog-personal-jero.vercel.app/posts/rxjs</loc>
+  <loc>https%3A%2F%2Fblog-personal-jero.vercel.app%2Fposts%2Frxjs</loc>
   <lastmod>2023-07-16</lastmod>
   <changefreq>never</changefreq>
 </url>
 <url>
-  <loc>https://blog-personal-jero.vercel.app/posts/context</loc>
+  <loc>https%3A%2F%2Fblog-personal-jero.vercel.app%2Fposts%2Fcontext</loc>
   <lastmod>2023-07-16</lastmod>
   <changefreq>never</changefreq>
 </url>
 <url>
-  <loc>https://blog-personal-jero.vercel.app/posts/lazyloading</loc>
+  <loc>https%3A%2F%2Fblog-personal-jero.vercel.app%2Fposts%2Flazyloading</loc>
   <lastmod>2023-07-16</lastmod>
   <changefreq>never</changefreq>
 </url>
 <url>
-  <loc>https://blog-personal-jero.vercel.app/posts/testingForm</loc>
+  <loc>https%3A%2F%2Fblog-personal-jero.vercel.app%2Fposts%2FtestingForm</loc>
   <lastmod>2023-07-16</lastmod>
   <changefreq>never</changefreq>
 </url>
 <url>
-  <loc>https://blog-personal-jero.vercel.app/posts/testingLibrary-jest-config</loc>
+  <loc>https%3A%2F%2Fblog-personal-jero.vercel.app%2Fposts%2FtestingLibrary-jest-config</loc>
   <lastmod>2023-07-16</lastmod>
   <changefreq>never</changefreq>
 </url>
