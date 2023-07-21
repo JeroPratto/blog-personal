@@ -2,7 +2,7 @@ import { Footer, Navbar } from './components'
 import './globals.css'
 
 export const metadata = {
-	title: 'Notas | Jerónimo',
+	title: 'Jerónimo | Notas',
 	description:
 		'Descubre notas y soluciones rápidas de problemas cotidianos en este blog accesible. React, nextjs, testing-library, jest',
 }

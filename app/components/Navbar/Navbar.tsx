@@ -2,8 +2,6 @@
 import React, { useEffect, useState } from 'react'
 import estilos from './Navbar.module.css'
 import Link from 'next/link'
-import home from 'public/home-white.svg'
-import homeDark from 'public/home-black.svg'
 import * as Switch from '@radix-ui/react-switch'
 import github from 'public/github-icon.svg'
 import githubDark from 'public/github-icon-black.svg'
@@ -30,12 +28,7 @@ const Navbar: React.FC<NavbarProps> = () => {
 			<div className={estilos.listContainer}>
 				<div className={estilos.item}>
 					<Link href='/' className={estilos.link}>
-						<Image
-							className={estilos.img}
-							src={isDarkMode ? home : homeDark}
-							alt='Home'
-						/>
-						Notas
+						Jerónimo | Notas
 					</Link>
 				</div>
 				<div className={estilos.containerLastItems}>

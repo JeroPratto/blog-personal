@@ -3,6 +3,8 @@ import { PostMetaData } from '@/app/models'
 import Link from 'next/link'
 import { ChangeEvent, useState } from 'react'
 import estilos from './styles/titleList.module.css'
+import { sanitizedInput } from './utilities/sanitizedInput'
+import { getSuggestionsPosts } from './utilities/getSuggestions'
 
 export type TitleListProps = {
 	posts: PostMetaData[]
@@ -10,26 +12,20 @@ export type TitleListProps = {
 
 const TitleList: React.FC<TitleListProps> = ({ posts }) => {
 	const [inputText, setInputText] = useState('')
+
 	const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const text = sanitizedInput(event.target.value)
 		setInputText(text)
 	}
 
 	const getSuggestions = () => {
-		const searchTerms = inputText.toLowerCase().split(' ')
-		return posts.filter((post) =>
-			searchTerms.every((term) => post.title.toLowerCase().includes(term)),
-		)
-	}
-
-	const sanitizedInput = (input: string) => {
-		const sanitized = input.replace(/[<>&]|[^-\w\s]/g, '')
-		return sanitized
+		return getSuggestionsPosts({ inputText, posts })
 	}
 
 	return (
 		<>
 			<form className={estilos.form}>
+				<h1 className={estilos.title}>Últimas Notas</h1>
 				<input
 					autoFocus
 					value={inputText}
@@ -43,7 +39,8 @@ const TitleList: React.FC<TitleListProps> = ({ posts }) => {
 						<Link href={`/posts/${post.slug}`} className={estilos.link}>
 							<div className={estilos.itemTitleAndDesc}>
 								<h2 className={estilos.itemTitle}>{post.title}</h2>
-								<p className={estilos.itemDesc}>{post.subtitle}</p>
+								<p className={estilos.itemDate}>{post.date}</p>
+								<p className={estilos.itemDesc}>{post.description}</p>
 							</div>
 						</Link>
 					</li>

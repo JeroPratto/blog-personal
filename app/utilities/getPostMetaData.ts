@@ -2,6 +2,7 @@ import matter from 'gray-matter'
 import { PostMetaData } from '../models'
 import fs from 'fs'
 import path from 'path'
+import dataSorted from './dataSorted'
 
 const getPostMetaData = (): PostMetaData[] => {
 	const directory = path.join(process.cwd(), 'posts')
@@ -15,10 +16,11 @@ const getPostMetaData = (): PostMetaData[] => {
 			date: matterResult.data.date,
 			subtitle: matterResult.data.subtitle,
 			urlImg: matterResult.data.urlImg,
+			description: matterResult.data.description,
 			slug: fileName.replace('.mdx', ''),
 		}
 	})
-	return posts
+	return dataSorted(posts)
 }
 
 export default getPostMetaData

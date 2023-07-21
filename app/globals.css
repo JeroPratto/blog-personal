@@ -21,26 +21,32 @@
 	--bg-color-footer: #ccc;
 	--text-color: #333333;
 	--title-color: #005799;
+	--home-title-color: #303030;
+	--home-subtitle-color: #545454;
 	--switchThumb-color: #fff;
 	--switchRoot-color: #000;
 	--text-color-footer: #000;
 	--bg-color-inline-code: rgba(0, 0, 0, 6%);
 }
-.whiteMode {
+/* .whiteMode {
 	--bg-color: #fff;
 	--bg-color-footer: #ccc;
 	--text-color: #333333;
 	--title-color: #005799;
+	--home-title-color: #fff;
+	--home-subtitle-color: #515151;
 	--switchThumb-color: #fff;
 	--switchRoot-color: #000;
 	--text-color-footer: #000;
 	--bg-color-inline-code: rgba(0, 0, 0, 6%);
-}
+} */
 .darkMode {
 	--bg-color: #000;
 	--bg-color-footer: #333;
 	--text-color: #fff;
 	--title-color: #0068b8;
+	--home-title-color: #fff;
+	--home-subtitle-color: #9a9a9a;
 	--switchThumb-color: #000;
 	--switchRoot-color: #fff;
 	--text-color-footer: #fff;

@@ -2,8 +2,11 @@ import { PostMetaData } from '../models'
 
 const dataSorted = (postMetada: PostMetaData[]): PostMetaData[] => {
 	const data = postMetada.sort((a, b) => {
-		if (a.date < b.date) return 1
-		if (a.date > b.date) return -1
+		const dateA = new Date(a.date)
+		const dateB = new Date(b.date)
+
+		if (dateA < dateB) return 1
+		if (dateA > dateB) return -1
 		return 0
 	})
 	return data

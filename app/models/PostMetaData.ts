@@ -3,5 +3,6 @@ export interface PostMetaData {
 	subtitle: string
 	date: string
 	slug: string
+	description: string
 	urlImg: string
 }
