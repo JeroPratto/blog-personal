@@ -27,7 +27,6 @@ const TitleList: React.FC<TitleListProps> = ({ posts }) => {
 			<form className={estilos.form}>
 				<h1 className={estilos.title}>Últimas Notas</h1>
 				<input
-					autoFocus
 					value={inputText}
 					onChange={handleInputChange}
 					placeholder='Buscar Post'
